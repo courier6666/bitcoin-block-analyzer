@@ -951,3 +951,381 @@ while (true)
 ## Результат виконання програми та її перевірка
 Запустимо програму та перевіримо її виконання.
 Завантажимо блок:
+
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/load_block.jpg?raw=true" width="900"/>
+</p>
+
+На рисунку можна побачити завантаження блоку та поточний блок.
+Висота блоку - 949847
+
+Хеш блоку- 00000000000000000001a4a9dff4a036126d5de07a508cbb65e304a3a9bb2919
+
+Кількість транзакцій в блоці - 5001.
+
+Звіримо з getblock командою
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/getblock.jpg?raw=true" width="900"/>
+</p>
+
+Отже, можна побачити, що висота кількість транзакцій та висота блоку сходиться, отже програма правильно зчитує та визначає дані про блок в сирих даних блоку.
+
+Тепер перевіримо чи правильно програма зчитує транзакції та їхні дані.
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/first_transaction.jpg?raw=true" width="900"/>
+</p>
+
+Можна побачити, що перша транзакція має хеш:
+a4f5993c5bec7f34ec3ddd8ae2147e759b2e8e1012c260a975d6edb5642c55e9
+
+Звіримо це за командою getblock та подивимось на першу траназкцію.
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/first_transaction_bitcoin-cli.jpg?raw=true" width="900"/>
+</p>
+
+В самому низу картинки можна побачити, що хеш першої транзакції співпадає, отже програма правильно зчитує транзакції.
+
+Тепер виведимо звіт статистики по типам виходів в транзакціях блоку.
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/report.jpg?raw=true" width="900"/>
+</p>
+
+В блоці висотою 949847 найбільше зустрічається виходів P2WPKH та OP_RETURN.
+
+Тепер перевіримо чи правильно визначаються типи виходів в транзакціях.
+Транзакція 0:
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/transaction_0.jpg?raw=true" width="900"/>
+</p>
+
+Дані транзакції 0 в bitcoin-cli:
+```
+{
+  "hash": "a4f5993c5bec7f34ec3ddd8ae2147e759b2e8e1012c260a975d6edb5642c55e9",
+  "ver": 1,
+  "vin_sz": 1,
+  "vout_sz": 7,
+  "size": 471,
+  "weight": 1776,
+  "fee": 0,
+  "relayed_by": "0.0.0.0",
+  "lock_time": 0,
+  "tx_index": 8209664841268666,
+  "double_spend": false,
+  "time": 1779044593,
+  "block_index": 949847,
+  "block_height": 949847,
+  "inputs": [
+    {
+      "sequence": 4294967295,
+      "witness": "01200000000000000000000000000000000000000000000000000000000000000000",
+      "script": "03577e0e194d696e656420627920416e74506f6f6c206a0108029c1a5c4efabe6d6d9f8c47ec7dc2021f11efbe7d5e5f76235ad85ffcb327f202146e0217fd3b2b471000000000000000000035677a13000000000000",
+      "index": 0,
+      "prev_out": {
+        "type": 0,
+        "spent": true,
+        "value": 0,
+        "spending_outpoints": [
+          {
+            "tx_index": 8209664841268666,
+            "n": 0
+          }
+        ],
+        "n": 4294967295,
+        "tx_index": 0,
+        "script": ""
+      }
+    }
+  ],
+  "out": [
+    {
+      "type": 0,
+      "spent": false,
+      "value": 546,
+      "spending_outpoints": [],
+      "n": 0,
+      "tx_index": 8209664841268666,
+      "script": "a91442402a28dd61f2718a4b27ae72a4791d5bbdade787",
+      "addr": "37jKPSmbEGwgfacCr2nayn1wTaqMAbA94Z"
+    },
+    {
+      "type": 0,
+      "spent": true,
+      "value": 313222576,
+      "spending_outpoints": [
+        {
+          "tx_index": 6042102497052715,
+          "n": 10
+        }
+      ],
+      "n": 1,
+      "tx_index": 8209664841268666,
+      "script": "a9145249bdf2c131d43995cff42e8feee293f79297a887",
+      "addr": "39C7fxSzEACPjM78Z7xdPxhf7mKxJwvfMJ"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 2,
+      "tx_index": 8209664841268666,
+      "script": "6a24aa21a9ed53747803e89f0b4eff805598e52a78799c3af73057a48dcc28c409ec0fa14fbe"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 3,
+      "tx_index": 8209664841268666,
+      "script": "6a2d434f524501a37cf4faa0758b26dca666f3e36d42fa15cc01064e3ecda72cb7961caa4b541b1e322bcfe0b5a030"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 4,
+      "tx_index": 8209664841268666,
+      "script": "6a12455853415401000d130f0e0e0b041f120013"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 5,
+      "tx_index": 8209664841268666,
+      "script": "6a277379730a8d35f8788aa5e02266f4cbb775403749e0115ec4b5e3a86c65c502c17083ebea2f2200"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 6,
+      "tx_index": 8209664841268666,
+      "script": "6a2952534b424c4f434b3a8953b2762271940ce8c042ee81b723d5832a8e4a848cb50272994113008702bf"
+    }
+  ]
+}
+```
+
+Отже можна побачити, що дані виходів скриптів співпадають.
+Наприклад вихід 7 має такі дані 
+```6a2952534b424c4f434b3a8953b2762271940ce8c042ee81b723d5832a8e4a848cb50272994113008702bf```
+Дані починаються з байту ```6a```, що відповідає опкоду ```OP_RETURN```.
+Отже, програма правильно визначає типи скриптів виходів.
+
+Порівняємо для 4 інших транзакцій.
+Транзакція 1:
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/transaction_1.jpg?raw=true" width="900"/>
+</p>
+
+```
+{
+  "hash": "64ddb028f4e14d0633186cb9e6dea7a503bfa0b12f57c667526b1c8a95628e56",
+  "ver": 1,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "size": 222,
+  "weight": 561,
+  "fee": 2260,
+  "relayed_by": "0.0.0.0",
+  "lock_time": 0,
+  "tx_index": 3045425257989005,
+  "double_spend": false,
+  "time": 1779044554,
+  "block_index": 949847,
+  "block_height": 949847,
+  "inputs": [
+    {
+      "sequence": 4294960000,
+      "witness": "0247304402203d17da6319de3648fa70e0e3a245ef2960be4edd596a0f3bba2dcac2a783ea0102202932b2974e79c6ab71e59153cf02e73fdd9e3822005edcfc01212b35dbda63c8012102234192bb7808bc273b19870facd6547512f3864fb408c5952da7ce9e94dee65a",
+      "script": "",
+      "index": 0,
+      "prev_out": {
+        "type": 0,
+        "spent": true,
+        "value": 7092553,
+        "spending_outpoints": [
+          {
+            "tx_index": 3045425257989005,
+            "n": 0
+          }
+        ],
+        "n": 1,
+        "tx_index": 174610348856950,
+        "script": "00140fa58d97016f49bbb82f40cfbf86b399eaac447a",
+        "addr": "bc1qp7jcm9cpdaymhwp0gr8mlp4nn842c3r6nmtaq5"
+      }
+    }
+  ],
+  "out": [
+    {
+      "type": 0,
+      "spent": false,
+      "value": 1278072,
+      "spending_outpoints": [],
+      "n": 0,
+      "tx_index": 3045425257989005,
+      "script": "0014c0e20eba509ff1b1590ab3d5c4bc1093458609a6",
+      "addr": "bc1qcr3qawjsnlcmzkg2k02uf0qsjdzcvzdxfsrrk2"
+    },
+    {
+      "type": 0,
+      "spent": true,
+      "value": 5812221,
+      "spending_outpoints": [
+        {
+          "tx_index": 2511118228423104,
+          "n": 0
+        }
+      ],
+      "n": 1,
+      "tx_index": 3045425257989005,
+      "script": "00140fa58d97016f49bbb82f40cfbf86b399eaac447a",
+      "addr": "bc1qp7jcm9cpdaymhwp0gr8mlp4nn842c3r6nmtaq5"
+    }
+  ]
+}
+```
+
+Транзакція 10:
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/transaction_10.jpg?raw=true" width="900"/>
+</p>
+
+```
+{
+  "hash": "8cca0af348c7e953cbf888d5a70cdcd6a82dbb07e63bbe130cead54a052ff5be",
+  "ver": 1,
+  "vin_sz": 1,
+  "vout_sz": 1,
+  "size": 195,
+  "weight": 450,
+  "fee": 587,
+  "relayed_by": "0.0.0.0",
+  "lock_time": 0,
+  "tx_index": 6718728484510397,
+  "double_spend": false,
+  "time": 1779044542,
+  "block_index": 949847,
+  "block_height": 949847,
+  "inputs": [
+    {
+      "sequence": 4294967295,
+      "witness": "02483045022100e1c23cb5d1bdff7094554c4d29844368d61f1a9f30416ba4669ae5a5edb167fc0220666a72358d25beae93aa3adc238b3a0efbcaf4cb4996ac94bd1b996989d4775c01210282292b2048aebcc1cb4ceb948019e8a6782adcaa879429122066d16f3a703766",
+      "script": "",
+      "index": 0,
+      "prev_out": {
+        "type": 0,
+        "spent": true,
+        "value": 430587,
+        "spending_outpoints": [
+          {
+            "tx_index": 6718728484510397,
+            "n": 0
+          }
+        ],
+        "n": 0,
+        "tx_index": 4665674116523577,
+        "script": "0014a0d3d36f40073e0fa4c670a2533673e6c74a6a1a",
+        "addr": "bc1q5rfaxm6qqulqlfxxwz39xdnnumr556s6rp2yuz"
+      }
+    }
+  ],
+  "out": [
+    {
+      "type": 0,
+      "spent": true,
+      "value": 430000,
+      "spending_outpoints": [
+        {
+          "tx_index": 8050009356057482,
+          "n": 306
+        }
+      ],
+      "n": 0,
+      "tx_index": 6718728484510397,
+      "script": "76a914941108e5f6ed85706419681d3085a3af40ca2f6988ac",
+      "addr": "1EVuQzEHAZ8856GHgv182jytpW1VLiXPB1"
+    }
+  ]
+}
+```
+
+Транзакція 2001:
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/transaction_2001.jpg?raw=true" width="900"/>
+</p>
+
+```
+{
+  "hash": "29bb856aaa5ff58bcfb766506f6a2390fd1aeee1a1934eb53fcd81a234047875",
+  "ver": 2,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "size": 222,
+  "weight": 558,
+  "fee": 43,
+  "relayed_by": "0.0.0.0",
+  "lock_time": 0,
+  "tx_index": 4133066466676793,
+  "double_spend": false,
+  "time": 1779043606,
+  "block_index": 949847,
+  "block_height": 949847,
+  "inputs": [
+    {
+      "sequence": 4294967293,
+      "witness": "02483045022100dc2438bdc821170c47d22c4ae9f5b339c3512e2a2778f397ba0ef619a4d69cb202205042e05b824703240c7e76473d7397ec67f3724cfd12e18f68bcad45c670dace01210360aa5eafe246010c379c88a36a23d9f09e3fe7463efb5653716e81712533c246",
+      "script": "",
+      "index": 0,
+      "prev_out": {
+        "type": 0,
+        "spent": true,
+        "value": 79282,
+        "spending_outpoints": [
+          {
+            "tx_index": 4133066466676793,
+            "n": 0
+          }
+        ],
+        "n": 0,
+        "tx_index": 8470132828567990,
+        "script": "001401c902d5e3fa01e19e4e2baaefcdafef75a52b9f",
+        "addr": "bc1qq8ys940rlgq7r8jw9w4wlnd0aa6622ulvukj4j"
+      }
+    }
+  ],
+  "out": [
+    {
+      "type": 0,
+      "spent": true,
+      "value": 79239,
+      "spending_outpoints": [
+        {
+          "tx_index": 6502070012057292,
+          "n": 0
+        }
+      ],
+      "n": 0,
+      "tx_index": 4133066466676793,
+      "script": "001401c902d5e3fa01e19e4e2baaefcdafef75a52b9f",
+      "addr": "bc1qq8ys940rlgq7r8jw9w4wlnd0aa6622ulvukj4j"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 1,
+      "tx_index": 4133066466676793,
+      "script": "6a5d1214011400ff7f818cec82d08bc0a88281d215"
+    }
+  ]
+}
+```
