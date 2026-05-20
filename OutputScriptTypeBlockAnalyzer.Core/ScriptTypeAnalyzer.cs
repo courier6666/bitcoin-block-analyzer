@@ -409,13 +409,23 @@ namespace OutputScriptTypeBlockAnalyzer.Core
 
             for (int i = 0; i < pubkeysCount; ++i)
             {
+                if (currentPubkeysPos >= scriptPubKey.Length - 2)
+                {
+                    return false;
+                }
+
                 if (scriptPubKey[currentPubkeysPos] != (byte)ScriptOpcodes.OP_PUSHBYTES_33 &&
                     scriptPubKey[currentPubkeysPos] != (byte)ScriptOpcodes.OP_PUSHBYTES_65)
                 {
                     return false;
                 }
 
-                currentPubkeysPos += scriptPubKey[currentPubkeysPos] - (byte)ScriptOpcodes.OP_1 + 2;
+                currentPubkeysPos += scriptPubKey[currentPubkeysPos] + 1;
+            }
+
+            if (currentPubkeysPos != scriptPubKey.Length - 2)
+            {
+                return false;
             }
 
             return true;
