@@ -48,11 +48,11 @@ while (true)
             }
 
             var dictionary = currentReport.Transactions
-                .SelectMany(t => t.OutputScripts)
-                .GroupBy(s => s)
+                .SelectMany(t => t.Outputs)
+                .GroupBy(s => s.ScriptType)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            int totalOutputs = currentReport.Transactions.Sum(t => t.OutputScripts.Length);
+            int totalOutputs = currentReport.Transactions.Sum(t => t.Outputs.Length);
             scriptTypeStats = dictionary.ToDictionary(kv => kv.Key, kv => (kv.Value, (float)kv.Value / totalOutputs));
 
             Console.WriteLine("Block loaded.");
@@ -65,7 +65,7 @@ while (true)
             Console.WriteLine("Current report:");
             Console.WriteLine($"Block Height: {currentReport.Height} ({currentReport.Hash})");
             Console.WriteLine($"Transactions: {currentReport.Transactions.Length}");
-            Console.WriteLine($"Outputs: {currentReport.Transactions.Sum(t => t.OutputScripts.Length)}");
+            Console.WriteLine($"Outputs: {currentReport.Transactions.Sum(t => t.Outputs.Length)}");
             Console.WriteLine();
 
             foreach (var kv in scriptTypeStats.OrderByDescending(kv => kv.Value.count))
@@ -91,7 +91,13 @@ while (true)
                 {
                     Console.WriteLine($"Transaction {orderNumber}:");
                     Console.WriteLine($"  ID: {transaction.TransactionId}");
-                    Console.WriteLine($"  Outputs: {string.Join(", ", transaction.OutputScripts.Select(s => s.ToString()))}");
+
+                    foreach (var output in transaction.Outputs)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine($"    Output: {output.Script}");
+                        Console.WriteLine($"    Type: {output.ScriptType}");
+                    }
                 }
                 else
                 {
@@ -116,7 +122,7 @@ while (true)
                 {
                     Console.WriteLine($"Transaction {transactionId}:");
                     Console.WriteLine($"  ID: {transaction.TransactionId}");
-                    Console.WriteLine($"  Outputs: {string.Join(", ", transaction.OutputScripts.Select(s => s.ToString()))}");
+                    Console.WriteLine($"  Outputs: {string.Join(", ", transaction.Outputs.Select(s => s.ToString()))}");
                 }
                 else
                 {

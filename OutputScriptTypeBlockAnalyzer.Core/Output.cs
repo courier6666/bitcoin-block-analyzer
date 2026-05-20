@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OutputScriptTypeBlockAnalyzer.Core
 {
-    public class Transaction
+    public class Output
     {
-        public string TransactionId { get; set; } = default!;
+        public string Script { get; set; } = default!;
 
-        public Output[] Outputs { get; set; } = default!;
+        public OutputScriptPubKeyType ScriptType { get; set; }
     }
 }

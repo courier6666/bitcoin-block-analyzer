@@ -155,12 +155,12 @@ namespace OutputScriptTypeBlockAnalyzer.Core
             var transaction = new Transaction
             {
                 TransactionId = transactionId,
-                OutputScripts = new OutputScriptPubKeyType[outputCount],
+                Outputs = new Output[outputCount],
             };
 
             for (ulong i = 0; i < outputCount; ++i)
             {
-                transaction.OutputScripts[i] = AnalyzeOutput(stream);
+                transaction.Outputs[i] = AnalyzeOutput(stream);
             }
 
             // Only skip witness data if this is a SegWit transaction
@@ -288,7 +288,7 @@ namespace OutputScriptTypeBlockAnalyzer.Core
             }
         }
 
-        private static OutputScriptPubKeyType AnalyzeOutput(Stream stream)
+        private static Output AnalyzeOutput(Stream stream)
         {
             // skipping Amount
             SkipBytes(stream, 8);
@@ -298,7 +298,11 @@ namespace OutputScriptTypeBlockAnalyzer.Core
             Span<byte> scriptPubKey = stackalloc byte[(int)scriptPubKeySize];
             stream.ReadExactly(scriptPubKey);
 
-            return ClassifyScriptPubKey(scriptPubKey);
+            return new Output
+            {
+                Script = Convert.ToHexString(scriptPubKey).ToLower(),
+                ScriptType = ClassifyScriptPubKey(scriptPubKey)
+            };
         }
 
         private static OutputScriptPubKeyType ClassifyScriptPubKey(ReadOnlySpan<byte> scriptPubKey)
@@ -362,12 +366,7 @@ namespace OutputScriptTypeBlockAnalyzer.Core
                 return OutputScriptPubKeyType.OP_RETURN;
             }
 
-            if (scriptPubKey.Length == 71 &&
-                scriptPubKey[0] == (byte)ScriptOpcodes.OP_1 &&
-                scriptPubKey[1] == (byte)ScriptOpcodes.OP_PUSHBYTES_33 &&
-                scriptPubKey[35] == (byte)ScriptOpcodes.OP_PUSHBYTES_33 &&
-                scriptPubKey[^2] == (byte)ScriptOpcodes.OP_2 &&
-                scriptPubKey[^1] == (byte)ScriptOpcodes.OP_CHECKMULTISIG)
+            if (IsMultisigScript(scriptPubKey))
             {
                 return OutputScriptPubKeyType.Multisig;
             }
