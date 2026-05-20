@@ -53,7 +53,7 @@ namespace OutputScriptTypeBlockAnalyzer.Core
 
 ```
 
-Клас ```Transaction.cs``` містить id транзакції та масив категорій ```scriptPubKey```, відповідно на кожен вихід - одна категорія.
+Клас ```Transaction.cs``` містить id транзакції та масив виходів ```Output```.
 
 Output.cs
 ```
@@ -1329,3 +1329,78 @@ a4f5993c5bec7f34ec3ddd8ae2147e759b2e8e1012c260a975d6edb5642c55e9
   ]
 }
 ```
+
+Транзакція 3000:
+<p align="center">
+  <img src="https://github.com/courier6666/bitcoin-block-analyzer/blob/main/Photos/transaction_3000.jpg?raw=true" width="900"/>
+</p>
+
+```
+{
+  "hash": "6b91e51fa86c19e13de770cf16f92df227ccd2e6a69a76fb3b1d55efed5911c0",
+  "ver": 2,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "size": 221,
+  "weight": 557,
+  "fee": 51,
+  "relayed_by": "0.0.0.0",
+  "lock_time": 0,
+  "tx_index": 6757784183761571,
+  "double_spend": false,
+  "time": 1779043897,
+  "block_index": 949847,
+  "block_height": 949847,
+  "inputs": [
+    {
+      "sequence": 4294967293,
+      "witness": "0247304402204bc25c11660383b47c3bff61e4adf58da5d2a14810190c4715c0cd2bd557e40f02204e86801a85a213b841910568cde81f98541655ad61f877d7313054447603207d0121031a1b8f51f411b3ff567f72e0c94d4276e47bc66d7c1d1aa8deb8f989b7595fdc",
+      "script": "",
+      "index": 0,
+      "prev_out": {
+        "type": 0,
+        "spent": true,
+        "value": 1099,
+        "spending_outpoints": [
+          {
+            "tx_index": 6757784183761571,
+            "n": 0
+          }
+        ],
+        "n": 0,
+        "tx_index": 6763714655264151,
+        "script": "0014c1a40f46ac79d47408a9ec0e63865e1cd5dea64c",
+        "addr": "bc1qcxjq734v0828gz9fas8x8pj7rn2aafjvlamxf6"
+      }
+    }
+  ],
+  "out": [
+    {
+      "type": 0,
+      "spent": true,
+      "value": 1048,
+      "spending_outpoints": [
+        {
+          "tx_index": 7090608457183466,
+          "n": 0
+        }
+      ],
+      "n": 0,
+      "tx_index": 6757784183761571,
+      "script": "0014c1a40f46ac79d47408a9ec0e63865e1cd5dea64c",
+      "addr": "bc1qcxjq734v0828gz9fas8x8pj7rn2aafjvlamxf6"
+    },
+    {
+      "type": 0,
+      "spent": false,
+      "value": 0,
+      "spending_outpoints": [],
+      "n": 1,
+      "tx_index": 6757784183761571,
+      "script": "6a5d1214011400ff7f818cec82d08bc0a88281d215"
+    }
+  ]
+}
+```
+
+Отже, на прикладах даних транзакцій можна побачити, що програма привильно зчитує транзакції та її виходи, і правильно визначає категорії скриптів у виходах.
